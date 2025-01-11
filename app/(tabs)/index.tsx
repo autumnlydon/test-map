@@ -1,74 +1,124 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { StyleSheet, TextInput, TouchableOpacity, SafeAreaView, Platform } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
 export default function HomeScreen() {
+  const insets = useSafeAreaInsets();
+  
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Aria</ThemedText>
-        <HelloWave />
+    <SafeAreaView style={styles.container}>
+      <ThemedView style={[styles.contentContainer, { paddingTop: insets.top + 20 }]}>
+        <ThemedView style={styles.whiteBox}>
+          <ThemedView style={styles.headerContainer}>
+            <ThemedText style={styles.title}>aria</ThemedText>
+            <ThemedText style={styles.subtitle}>your daily companion</ThemedText>
+          </ThemedView>
+
+          <ThemedView style={styles.formContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              placeholderTextColor="#A8A8A8"
+              autoCapitalize="none"
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              placeholderTextColor="#A8A8A8"
+              secureTextEntry
+            />
+            <TouchableOpacity style={styles.loginButton}>
+              <ThemedText style={styles.loginButtonText}>Login</ThemedText>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.forgotPassword}>
+              <ThemedText style={styles.forgotPasswordText}>Forgot Password?</ThemedText>
+            </TouchableOpacity>
+          </ThemedView>
+        </ThemedView>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF5F6',
+  },
+  contentContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
     alignItems: 'center',
-    gap: 8,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  whiteBox: {
+    backgroundColor: 'white',
+    width: '100%',
+    borderRadius: 30,
+    padding: 30,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.05,
+    shadowRadius: 15,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  headerContainer: {
+    alignItems: 'center',
+    marginBottom: 40,
+    width: '100%',
+  },
+  title: {
+    fontSize: 36,
+    fontWeight: '300',
+    color: '#FF97B7',
+    letterSpacing: 6,
+    textAlign: 'center',
+    lineHeight: 44,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#A8A8A8',
+    marginTop: 8,
+  },
+  formContainer: {
+    width: '100%',
+  },
+  input: {
+    backgroundColor: '#F8F8F8',
+    borderRadius: 20,
+    padding: 18,
+    marginBottom: 15,
+    fontSize: 16,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.02,
+    shadowRadius: 5,
+  },
+  loginButton: {
+    backgroundColor: '#A1CEDC',
+    borderRadius: 20,
+    padding: 18,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  loginButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  forgotPassword: {
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  forgotPasswordText: {
+    color: '#A8A8A8',
+    fontSize: 14,
   },
 });
